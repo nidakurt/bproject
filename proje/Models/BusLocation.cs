@@ -36,4 +36,44 @@ namespace proje.Models
 
         }
     }
+    public class BusLocationService
+    {
+        Object message;
+        public Object Save(BusLocation buslocation)
+        {
+            
+            Bus existBus = Database.Session.QueryOver<Bus>().Where(x=>x.plate== buslocation.busId.plate).SingleOrDefault();
+            int a = Database.Session.QueryOver<BusLocation>().Where(x => x.busId== existBus).RowCount();
+            if (a >= 1)
+            {
+            IEnumerable <BusLocation> existBusLocation=  Database.Session.QueryOver<BusLocation>().Where(x => x.busId.busId == existBus.busId).OrderBy(x=>x.createdAt).Desc.List();
+                BusLocation updateBusLocationState = existBusLocation.FirstOrDefault();
+                updateBusLocationState.state = false;
+                Database.Session.Clear();
+                Database.Session.Update(updateBusLocationState);
+                Database.Session.Flush();
+                buslocation.createdAt = DateTime.Now;
+                buslocation.busId = existBus;
+                buslocation.state = true;
+                Database.Session.Save(buslocation);
+            }
+            else
+            {
+                try
+                {
+                    buslocation.createdAt = DateTime.Now;
+                    buslocation.state = true;
+                    buslocation.busId = existBus;
+                    Database.Session.Clear();
+                    Database.Session.Save(buslocation);
+                    Database.Session.Flush();
+                }
+                catch (Exception e)
+                {
+                    message = e.InnerException.Message;
+                }
+            }
+            return message;
+        }
+    }
 }

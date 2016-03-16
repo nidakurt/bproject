@@ -1,13 +1,13 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 2013
-VisualStudioVersion = 12.0.40629.0
+# Visual Studio 14
+VisualStudioVersion = 14.0.23107.0
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "publicTransport", "proje\publicTransport.csproj", "{DFFABE30-2019-45F3-BC46-EA7F88B01C06}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WebApiEtus", "MvcApplication1\WebApiEtus.csproj", "{877F245B-A610-4F35-BEA2-7E0191574EE0}"
 EndProject
-Project("{E24C65DC-7377-472B-9ABA-BC803B73C61A}") = "WebEtus(1)", "http://localhost:49947", "{FF709F3A-0380-4C90-AC7B-1245787B366E}"
+Project("{E24C65DC-7377-472B-9ABA-BC803B73C61A}") = "WebEtus", "http://localhost:49947", "{FF709F3A-0380-4C90-AC7B-1245787B366E}"
 	ProjectSection(WebsiteProperties) = preProject
 		UseIISExpress = "true"
 		TargetFrameworkMoniker = ".NETFramework,Version%3Dv4.5"
