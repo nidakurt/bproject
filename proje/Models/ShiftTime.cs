@@ -21,6 +21,7 @@ namespace proje.Models
         public virtual DateTime shiftEnd { get; set; }
         public virtual bool state { get; set; }
         public virtual DateTime createdAt { get; set; }
+      //  public virtual Bus 
     }
 
     public class ShiftTimeMap : ClassMapping<ShiftTime>
@@ -34,6 +35,7 @@ namespace proje.Models
             Property(x => x.shiftEnd, x => x.NotNullable(true));
             Property(x => x.state, x => x.NotNullable(true));
             Property(x => x.createdAt, x => x.NotNullable(true));
+         //   Property(x=>x.existPlate, 
 
 
             ManyToOne(x => x.driverId, x =>
@@ -65,7 +67,7 @@ namespace proje.Models
     {
         ShiftTime message;
         public Object Get(ShiftTime shifTime)
-        {// burda plaka ile sorgu attgında istegin bilgiler geliyolar stations dişinda onun içde rankinge sorgu atarsın
+        {// burda plaka ile sorgu attgında istegin bilgiler geliyolar stations dişinda onun içde rankinge sorgu atılacak
             Bus existPlate = Database.Session.QueryOver<Bus>().Where(x => x.plate == shifTime.plate.plate).SingleOrDefault();
             IEnumerable<ShiftTime> existShifTime = Database.Session.QueryOver<ShiftTime>().Where(x => x.plate.busId == existPlate.busId && ( x.stiftStart<= DateTime.Now && DateTime.Now<=x.shiftEnd)).OrderBy(y => y.createdAt).Desc.List();
             message = existShifTime.FirstOrDefault();
@@ -73,17 +75,16 @@ namespace proje.Models
             Database.Session.Clear();
            
             
-            return message;
+            return shifTime;
         }
         Object mssg;
-        //trigger kulanmak gerekecek sanırım state zamanı dolunca degiştiroyorsam 
-        //bide burda 4 tane tarih var ben sorgulamayı yapaerken deparutretime kullanmadım 
-        public Object Save(ShiftTime shifTime)
+        
+        public ShiftTime Save(ShiftTime shifTime)
         {
             
             try
             {
-                //otobus driver yada line state false uyarması gerek 
+               
                 shifTime.createdAt = DateTime.Now;
                 shifTime.state = true;
                 Database.Session.Save(shifTime);
@@ -97,7 +98,7 @@ namespace proje.Models
 
 
             }
-            return mssg;
+            return shifTime;
         }
     }
 }

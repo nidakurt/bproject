@@ -37,7 +37,7 @@ namespace proje.Models
     {
         Station newStation = new Station();
         Object message;
-        public Object saveOrUpdate(Station station)
+        public Station saveOrUpdate(Station station)
         {
             Station existStation = Database.Session.Load<Station>(station.stationId);
             if (existStation.stationId == 0)
@@ -76,9 +76,9 @@ namespace proje.Models
                     message = e.InnerException.Message;
                 }
             }
-            return message;
+            return station;
         }
-        public Object getOrGetAll(Station station)
+        public Station getOrGetAll(Station station)
         {
             if (station.stationId == null)
             {
@@ -88,7 +88,7 @@ namespace proje.Models
             {
                 message = Database.Session.QueryOver<Station>().Where(x => x.stationId == station.stationId && x.state == true).List();
             }
-            return message;
+            return station;
         }
     }
 }

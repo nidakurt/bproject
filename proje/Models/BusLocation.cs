@@ -39,7 +39,7 @@ namespace proje.Models
     public class BusLocationService
     {
         Object message;
-        public Object Save(BusLocation buslocation)
+        public BusLocation Save(BusLocation buslocation)
         {
             
             Bus existBus = Database.Session.QueryOver<Bus>().Where(x=>x.plate== buslocation.busId.plate).SingleOrDefault();
@@ -73,7 +73,7 @@ namespace proje.Models
                     message = e.InnerException.Message;
                 }
             }
-            return message;
+            return buslocation;
         }
     }
 }

@@ -33,7 +33,7 @@ namespace proje.Models
         Line newLine = new Line();
         Object message;
 
-        public Object saveOrUpdate(Line line)
+        public Line saveOrUpdate(Line line)
         {
             Line existLine = Database.Session.Load<Line>(line.lineId);
             if (existLine.lineId == 0)
@@ -64,10 +64,10 @@ namespace proje.Models
                     message = e.InnerException.Message;
                 }
             }
-            return message;
+            return line;
         }
         
-        public Object getOrGetAll(Line line)
+        public Line getOrGetAll(Line line)
         {
             if(line.lineId==0)
             {
@@ -77,7 +77,7 @@ namespace proje.Models
             {
                 message = Database.Session.QueryOver<Line>().Where(x => x.lineId == line.lineId && x.state == true).List();
             }
-            return message;
+            return line;
         }
        }
     }

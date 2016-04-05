@@ -12,10 +12,8 @@ namespace proje.Models
     {
         public virtual int driverId { get; set; }
         public virtual string nameSurname { get; set; }
-        //string ?
         public virtual int picture { get; set; }
-        //string? sıgmaz büyük ihtimal ve cem hoca ileride tc sadece sayılardan oluşmayabilir dedi
-        public virtual int tc { get; set; }
+        public virtual string tc { get; set; }
         public virtual DateTime birthday { get; set; }
         public virtual string bloodGroup { get; set; }
         public virtual string phone { get; set; }
@@ -46,8 +44,7 @@ namespace proje.Models
     {
         Driver newDriver = new Driver();
         Object message;
-        // tc unique olacak ve veritabanında hiç veri olmadıgı zaman patlıyor büyük ihtimal busda da patlayacak
-        public Object saveOrUpdate(Driver driver)
+        public Driver saveOrUpdate(Driver driver)
 
         {
             Driver existDriver = Database.Session.Load<Driver>(driver.driverId);
@@ -94,12 +91,12 @@ namespace proje.Models
                     message = e.InnerException.Message;
                 }
             }
-            return message;
+            return driver;
         }
 
-        public Object getOrGetAll(Driver driver)
+        public Driver getOrGetAll(Driver driver)
         {
-            if (driver.tc == 0)
+            if (driver.tc == null)
             {
                 message = Database.Session.QueryOver<Driver>().Where(x => x.state == true).List();
             }
@@ -108,7 +105,7 @@ namespace proje.Models
 
                 message = Database.Session.QueryOver<Driver>().Where(x => x.tc == driver.tc && x.state == true).List();
             }
-            return message;
+            return driver;
         }
 
     }
